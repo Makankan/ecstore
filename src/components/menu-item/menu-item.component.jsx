@@ -1,14 +1,19 @@
 import React from "react";
 import "./menu-item.styles.scss";
+import { withRouter } from "react-router-dom";
 
-const MenuItem = ({ title, imageUrl, size }) => {
+const MenuItem = ({ title, image, size, history, linkUrl, match }) => {
   //insteaad of props we are doing destructuring
+  //history,match is the props value. 5 React router refer. with use of withRouter we get the props value history
   return (
-    <div className={`${size} menu-item`}>
+    <div
+      className={`${size} menu-item`}
+      onClick={() => history.push(`${match.url}${linkUrl}`)} //history.push() is used to route to the url
+    >
       <div
         className="background-image"
         style={{
-          backgroundImage: `url(${imageUrl})`,
+          backgroundImage: `url(${image})`,
         }}
       />
       <div className="content">
@@ -18,4 +23,4 @@ const MenuItem = ({ title, imageUrl, size }) => {
     </div>
   );
 };
-export default MenuItem;
+export default withRouter(MenuItem);
